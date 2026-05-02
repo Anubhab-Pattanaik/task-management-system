@@ -1,11 +1,9 @@
 package com.anubhab.taskmanagementsystem.dto;
 
-import com.anubhab.taskmanagementsystem.entity.TaskStatus;
-
-public class TaskManagementRequest {
+public class TaskRequestDTO {
     private String title;
     private String description;
-    private TaskStatus status;
+    private String status;
 
     public String getTitle() {
         return title;
@@ -23,11 +21,11 @@ public class TaskManagementRequest {
         this.description = description;
     }
 
-    public TaskStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(TaskStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
