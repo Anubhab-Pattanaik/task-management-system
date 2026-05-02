@@ -1,17 +1,40 @@
 package com.anubhab.taskmanagementsystem.entity;
 
-public class Entity {
+import org.springframework.data.annotation.Id;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Task {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String description;
+
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
-    public Entity(Long id, String title, String description) {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User assignedTo;
+
+    public Task(Long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = TaskStatus.TODO;
+    }
+
+    public Task() {
     }
 
     public Long getId() {
