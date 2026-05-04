@@ -1,7 +1,6 @@
 package com.anubhab.taskmanagementsystem.entity;
 
-import org.springframework.data.annotation.Id;
-
+import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,14 +26,13 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User assignedTo;
 
-    public Task(Long id, String title, String description) {
-        this.id = id;
+    public Task() {
+    }
+
+    public Task(String title, String description) {
         this.title = title;
         this.description = description;
         this.status = TaskStatus.TODO;
-    }
-
-    public Task() {
     }
 
     public Long getId() {
