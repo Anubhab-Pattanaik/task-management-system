@@ -1,10 +1,10 @@
 package com.anubhab.taskmanagementsystem.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Service;
-
-import com.anubhab.taskmanagementsystem.dto.TaskRequestDTO;
+import com.anubhab.taskmanagementsystem.dto.TaskResponseDTO;
 import com.anubhab.taskmanagementsystem.entity.Task;
-import com.anubhab.taskmanagementsystem.entity.TaskStatus;
 import com.anubhab.taskmanagementsystem.repository.TaskRepository;
 
 @Service
@@ -16,17 +16,20 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public Task createTask(TaskRequestDTO dto) {
-        Task task = new Task();
+    public List<TaskResponseDTO> getAllTasks() {
+        List<Task> tasks = taskRepository.findAll();
+        List<TaskResponseDTO> responseList = new ArrayList<>();
 
-        task.setTitle(dto.getTitle());
-        task.setDescription(dto.getDescription());
-        if (dto.getStatus() != null) {
-            task.setStatus(TaskStatus.valueOf(dto.getStatus()));
-        } else {
-            task.setStatus(TaskStatus.TODO);
+        for(Task task: tasks) {
+            TaskResponseDTO dto = new TaskResponseDTO(
+                task.getId(),
+                task.getTitle(),
+                task.getDescription(),
+                task.getStatus().name(),
+                task.getAssignedTo() != null ? task.getAssignedTo().getName(): null
+            );
+            responseList.add(dto);
         }
-        return taskRepository.save(task);
+        return responseList;
     }
-    
 }
